@@ -115,15 +115,15 @@ private:
        {false, false, false, false, false, false, false, false, false, false}}};
 
   /// @brief The values of the cards in a standard deck used in Baccarat.
-  /// @note The index represents the card type. See int_to_card_type_map for
-  /// more information.
+  /// @note The index represents the card type. See get_string_card_type method
+  /// for more information.
   static constexpr std::array<int, 13> CARD_VALUES = {1, 2, 3, 4, 5, 6, 7,
                                                       8, 9, 0, 0, 0, 0};
 
   /// @brief Keeps track of how many times each card has been drawn.
   /// @note Each card can be drawn a maximum of 32 times (4 decks of 8 cards).
-  /// @note The index represents the card type. See int_to_card_type_map for
-  /// more information.
+  /// @note The index represents the card type. See get_string_card_type method
+  /// for more information.
   std::array<int, NUM_OF_UNIQUE_CARDS> drawn_card_counter = {};
 
   /// @brief The number of cards drawn from the deck.
@@ -181,7 +181,7 @@ private:
    * number generation.
    *
    * @return The card drawn from the deck. The card type is represented by an
-   * int, see int_to_card_type_map for more information.
+   * int, see get_string_card_type method for more information.
    *
    * @note Returns -1 if there are no cards left to draw.
    */
@@ -189,6 +189,11 @@ private:
 
   /**
    * @brief Converts the card type to a string.
+   *
+   * @details This function maps an int to a string representation of the card.
+   *
+   * @example 0 is "A", 1 is "2", 2 is "3", ..., 9 is "10", 10 is "J",
+   * 11 is "Q", and 12 is "K".
    *
    * @param card_type The card type to convert.
    *
