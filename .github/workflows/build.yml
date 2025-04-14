@@ -1,0 +1,53 @@
+name: Build Baccarat
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  Linting:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Run clang-format check
+        run: |
+          clang-format --version
+          clang-format -i src/*.cpp src/*.h
+          git diff --exit-code
+
+      - name: Run clang-tidy check
+        run: |
+          cmake -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build
+          clang-tidy --version
+          clang-tidy -p build src/*.cpp src/*.h
+
+  Build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Create Makefiles
+        run: |
+          cmake -DASAN=OFF -DRELEASE=ON -G "MinGW Makefiles" -B build
+
+      - name: Build Baccarat
+        run: cmake --build build
+
+      - name: Upload build artifacts
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: baccarat
+          path: build/baccarat.exe
