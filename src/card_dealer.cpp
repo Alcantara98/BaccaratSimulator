@@ -37,8 +37,8 @@ void CardDealer::play_round()
   }
 
   // Print the cards and the winner.
-  printf("%s : %s : %s\n", player_cards.c_str(), banker_cards.c_str(),
-         winner_message.c_str());
+  printf("Player Cards: %s\nBanker Cards: %s\n%s\n", player_cards.c_str(),
+         banker_cards.c_str(), winner_message.c_str());
 }
 
 void CardDealer::deal_player_and_banker_cards(std::string &player_cards,

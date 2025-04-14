@@ -45,7 +45,7 @@ void Baccarat::main_menu_state()
 
 void Baccarat::game_state()
 {
-  printf("\nStarting a game of Baccarat!\n");
+  printf("\n--- Starting a game of Baccarat! ---\n\n");
   printf("Simply press enter to deal cards... \n\n");
 
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
