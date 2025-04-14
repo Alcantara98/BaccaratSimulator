@@ -24,7 +24,7 @@ void Baccarat::update_game_state(StateType new_state)
 void Baccarat::main_menu_state()
 {
   printf("\n\n--- Welcome to the Baccarat game! ---\n\n");
-  printf("Enter 'start' to play or 'exit' to quit: ");
+  printf("Enter 'start' to play or 'help' for more options: ");
 
   while (!exit_state)
   {
@@ -88,7 +88,12 @@ auto Baccarat::handle_player_input(const std::string &user_input) -> bool
   else if (user_input == "help")
   {
     printf("Available commands:\n  -start\n  -exit\n  -menu\n  -reset\n  "
-           "-enter to deal cards\n");
+           "-draw-counter\n  -help\n  -enter to deal cards\n");
+    return true;
+  }
+  else if (user_input == "draw-counts")
+  {
+    card_dealer.print_drawn_card_counter();
     return true;
   }
   else

@@ -90,6 +90,16 @@ void CardDealer::reset_deck()
   gen = std::mt19937(my_random_device());
 }
 
+void CardDealer::print_drawn_card_counter()
+{
+  printf("\nDrawn Card Counter:\n");
+  for (int i = 0; i < NUM_OF_UNIQUE_CARDS; ++i)
+  {
+    printf("%s: %d\n", get_string_card_type(i).c_str(), drawn_card_counter[i]);
+  }
+  printf("\n");
+}
+
 // PRIVATE METHODS
 
 auto CardDealer::deal_a_card(std::string &cards, int &hand_value) -> int
@@ -155,6 +165,7 @@ auto CardDealer::draw_card() -> int
     if (drawn_card_counter[card_type] < MAX_DRAWS_PER_CARD)
     {
       ++total_cards_drawn;
+      ++drawn_card_counter[card_type];
       return card_type;
     }
     card_type = (card_type + 1) % NUM_OF_UNIQUE_CARDS;

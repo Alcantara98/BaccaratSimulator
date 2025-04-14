@@ -53,8 +53,7 @@ private:
   void update_game_state(StateType new_state);
 
   /**
-   * @brief Main menu state, where the player can choose to play or exit the
-   * game.
+   * @brief Main menu state. This is the entry point of the game.
    */
   void main_menu_state();
 
