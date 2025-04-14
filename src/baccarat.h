@@ -24,9 +24,7 @@ class Baccarat
 
 public:
   /**
-   * @brief Constructor for the Baccarat class.
-   *
-   * @details Initializes the CardDealer object to handle card dealing.
+   * @brief Default Constructor for the Baccarat class.
    */
   Baccarat();
 
@@ -49,6 +47,8 @@ private:
 
   /**
    * @brief Updates the game state.
+   *
+   * @param new_state The new state function to transition to.
    */
   void update_game_state(StateType new_state);
 
@@ -64,8 +64,9 @@ private:
   void game_state();
 
   /**
-   * @brief This function handles user input for exiting or changing game
-   * states.
+   * @brief Handles user input for exiting or changing game states.
+   *
+   * @param user_input The string input provided by the user.
    *
    * @return bool true if the user input is valid, false otherwise.
    */

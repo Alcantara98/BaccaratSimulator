@@ -21,7 +21,7 @@ namespace BACCARAT
  * @details The Baccarat class handles the initialization and dealing of cards
  * for a game of Baccarat.
  *
- * @remarks The class simluates the game with 8 decks of cards for a true
+ * @remarks The class simulates the game with 8 decks of cards for a true
  * Baccarat experience.
  *
  * @note See 'https://en.wikipedia.org/wiki/Baccarat' for more
@@ -31,19 +31,21 @@ class CardDealer
 {
 public:
   /**
-   * @brief Constructor for the CardDealer class.
-   *
-   * @details Initializes the drawn_card_counter array to zero.
+   * @brief Default Constructor for the CardDealer class.
    */
   CardDealer();
 
   /**
-   * @brief Handles a round of Baccarat.CardDealer
+   * @brief Handles a round of Baccarat.
    *
-   * @details This function simulates dealing a card from the deck using
-   * Baccarat rules. This function will print the cards dealt to the console.
+   * @details This function simulates dealing cards from the deck using
+   * Baccarat rules. It prints the cards dealt to the console.
    * Example:
-   * '3,5 : 2,3,J : Player Wins'
+   *
+   * Player Cards: Q,3
+   * Banker Cards: 6,3
+   * Banker Wins!
+   *
    */
   void play_round();
 
