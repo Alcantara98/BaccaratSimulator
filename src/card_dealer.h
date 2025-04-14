@@ -70,6 +70,16 @@ public:
    */
   void reset_deck();
 
+  /**
+   * @brief Prints the drawn card counter.
+   *
+   * @details This function prints the number of times each card has been
+   * drawn from the deck.
+   *
+   * @note This function is used for debugging purposes (or for cheating).
+   */
+  void print_drawn_card_counter();
+
 private:
   /// @brief The number of unique cards in a standard deck used in Baccarat.
   static constexpr int NUM_OF_UNIQUE_CARDS = 13;
