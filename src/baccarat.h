@@ -2,6 +2,7 @@
 #define BACCARAT_H
 
 #include "card_dealer.h"
+#include "bet_type.h"
 
 namespace BACCARAT
 {
@@ -44,6 +45,8 @@ private:
 
   /// @brief The CardDealer object to handle card dealing.
   CardDealer card_dealer;
+
+  BetType current_outcome = BetType::NONE;
 
   /**
    * @brief Updates the game state.

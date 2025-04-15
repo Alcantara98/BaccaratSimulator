@@ -1,4 +1,7 @@
 #include "baccarat.h"
+#include "casino_player.h"
+#include <cctype>
+#include <algorithm>
 
 namespace BACCARAT
 {
@@ -46,18 +49,67 @@ void Baccarat::main_menu_state()
 void Baccarat::game_state()
 {
   printf("\n--- Starting a game of Baccarat! ---\n\n");
-  printf("Simply press enter to deal cards... \n\n");
 
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  CasinoPlayer* player = new CasinoPlayer();
 
   while (!exit_state)
   {
+    printf("Your current balance is: $%.2f\n", player->check_balance());
+
+    printf("Enter your bet type (PLAYER, BANKER, TIE) and amount (e.g., PLAYER 100): ");
+
+    std::string bet_type;
+    double bet_amount = 0.0;
+
+    std::cin >> bet_type >> bet_amount;
+
+    std::transform(bet_type.begin(), bet_type.end(), bet_type.begin(),
+                   [](unsigned char c) { return std::toupper(c); });
+
+    if (bet_type == "PLAYER")
+    {
+      player->place_bet(BetType::PLAYER, bet_amount);
+    }
+    else if (bet_type == "BANKER")
+    {
+      player->place_bet(BetType::BANKER, bet_amount);
+    }
+    else if (bet_type == "TIE")
+    {
+      player->place_bet(BetType::TIE, bet_amount);
+    }
+    else
+    {
+      printf("Invalid bet type. Do you wish to continue? (yes/no)\n");
+      std::string response;
+      std::cin >> response;
+      if (response == "no")
+      {
+        update_game_state(&Baccarat::main_menu_state);
+        break;
+      }
+      else if (response == "yes")
+      {
+        continue;
+      }
+      else
+      {
+        printf("Invalid response. Exiting...\n");
+        exit(0);
+      }
+    }
+
+    printf("Press 'enter' to deal cards...\n");
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::string input;
     std::getline(std::cin, input);
 
     if (input.empty())
     {
-      card_dealer.play_round();
+      card_dealer.play_round(current_outcome);
+      card_dealer.pay_out_bets(current_outcome, player);
     }
     else if (handle_player_input(input))
     {
