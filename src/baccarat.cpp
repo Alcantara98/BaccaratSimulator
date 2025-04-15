@@ -88,7 +88,7 @@ auto Baccarat::handle_player_input(const std::string &user_input) -> bool
   else if (user_input == "help")
   {
     printf("Available commands:\n  -start\n  -exit\n  -menu\n  -reset\n  "
-           "-draw-counter\n  -help\n  -enter to deal cards\n");
+           "-draw-counts\n  -help\n  -press 'enter' to deal cards\n");
     return true;
   }
   else if (user_input == "draw-counts")
