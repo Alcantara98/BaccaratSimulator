@@ -113,7 +113,10 @@ auto CardDealer::deal_a_card(std::string &cards, int &hand_value) -> int
     cards += ",";
   }
   cards += get_string_card_type(card_type);
-  hand_value += CARD_VALUES[card_type];
+
+  // Hand value is the last digit of the sum of the card values.
+  // This is to ensure that the hand value is between 0 and 9.
+  hand_value = (hand_value + CARD_VALUES[card_type]) % HAND_VALUE_MODULO;
 
   return card_type;
 }
@@ -189,48 +192,48 @@ auto CardDealer::get_string_card_type(const int &card_type) -> std::string
   return INT_TO_STRING_CARD_TYPE_MAP[card_type];
 }
 
-void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer *player)
+void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer &player)
 {
-  if (player->get_current_bet_type() == BetType::NONE)
+  if (player.get_current_bet_type() == BetType::NONE)
   {
-    printf("No bet placed.\n");
+    printf("\nNo bet placed.\n");
     return;
   }
 
-  if (player->get_current_bet_type() != outcome)
+  if (player.get_current_bet_type() != outcome)
   {
-    printf("Bet lost. No payout.\n\n");
+    printf("\nBet lost. No payout.\n");
     return;
   }
 
   switch (outcome)
   {
   case BetType::PLAYER:
-    if (player->get_current_bet_amount() > 0)
+    if (player.get_current_bet_amount() > 0)
     {
       // Player wins, payout is 1:1
       // Player's bet amount is added to the balance
-      player->add_to_balance(player->get_current_bet_amount() * PAYOUT_PLAYER +
-                             player->get_current_bet_amount());
+      player.add_to_balance(player.get_current_bet_amount() * PAYOUT_PLAYER +
+                            player.get_current_bet_amount());
     }
     break;
   case BetType::BANKER:
-    if (player->get_current_bet_amount() > 0)
+    if (player.get_current_bet_amount() > 0)
     {
       // Banker wins, payout is 1:1 - 5% commission
       // Player's bet amount is added to the balance
-      player->add_to_balance(player->get_current_bet_amount() *
-                                 (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION) +
-                             player->get_current_bet_amount());
+      player.add_to_balance(player.get_current_bet_amount() *
+                                (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION) +
+                            player.get_current_bet_amount());
     }
     break;
   case BetType::TIE:
-    if (player->get_current_bet_amount() > 0)
+    if (player.get_current_bet_amount() > 0)
     {
       // Tie wins, payout is 8:1
       // Player's bet amount is added to the balance
-      player->add_to_balance(player->get_current_bet_amount() * PAYOUT_TIE +
-                             player->get_current_bet_amount());
+      player.add_to_balance(player.get_current_bet_amount() * PAYOUT_TIE +
+                            player.get_current_bet_amount());
     }
     break;
   default:

@@ -10,7 +10,8 @@ void CasinoPlayer::place_bet(BetType bet_type, double amount)
 {
   if (amount > balance)
   {
-    printf("Insufficient balance to place the bet. Balance: %.2f\n", balance);
+    printf("\nInsufficient balance to place the bet. Balance: %.2f\n\n",
+           balance);
     return;
   }
 
@@ -18,7 +19,7 @@ void CasinoPlayer::place_bet(BetType bet_type, double amount)
   current_bet_amount = amount;
   balance -= amount;
 
-  printf("Bet placed: %s %.2f\n\n", get_string_bet_type(bet_type).c_str(),
+  printf("\nBet placed: %s %.2f\n\n", get_string_bet_type(bet_type).c_str(),
          amount);
 }
 
@@ -37,7 +38,7 @@ auto CasinoPlayer::get_current_bet_amount() const -> double
 void CasinoPlayer::add_to_balance(double amount)
 {
   balance += amount;
-  printf("Balance updated: %.2f\n\n", balance);
+  printf("\nBalance updated: %.2f\n", balance);
 }
 
 } // namespace BACCARAT

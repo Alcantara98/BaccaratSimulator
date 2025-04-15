@@ -90,7 +90,7 @@ public:
    *
    * @param player The player to pay out the bets to.
    */
-  static void pay_out_bets(const BetType &outcome, CasinoPlayer *player);
+  static void pay_out_bets(const BetType &outcome, CasinoPlayer &player);
 
 private:
   /// @brief The number of unique cards in a standard deck used in Baccarat.
@@ -123,6 +123,10 @@ private:
   /// @note If either the player or banker has a natural hand value, no more
   /// cards are drawn.
   static constexpr int NATURAL_NINE = 9;
+
+  /// @brief The modulo value used to calculate the hand value in Baccarat.
+  /// @note Hand value cannot exceed 9, hence the modulo value is 10.
+  static constexpr int HAND_VALUE_MODULO = 10;
 
   /// @brief When the player has 3 cards, this table is used to determine if the
   /// banker should draw a third card. Index one is the value of the banker's

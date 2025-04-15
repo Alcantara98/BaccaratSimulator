@@ -51,6 +51,10 @@ private:
   /// @details This is used to determine the outcome of the game and to pay out
   BetType current_outcome = BetType::NONE;
 
+  /// @brief Flag to indicate if the game should deal cards only and not handle
+  /// player bets and outcomes.
+  bool deal_cards_only = false;
+
   /**
    * @brief Updates the game state.
    *
@@ -75,7 +79,19 @@ private:
    *
    * @return bool true if the user input is valid, false otherwise.
    */
-  auto handle_player_input(const std::string &user_input) -> bool;
+  auto handle_general_user_commands(const std::string &user_input) -> bool;
+
+  /**
+   * @brief Handles user input for placing bets and outcomes.
+   *
+   * @param player The CasinoPlayer object representing the player.
+   * @param user_input The string input provided by the user.  Expected format
+   * is BET_TYPE-BET_AMOUNT.
+   *
+   * @return bool true if the bet is valid, false otherwise.
+   */
+  auto handle_player_round(CasinoPlayer &player,
+                           std::string &user_input) -> bool;
 };
 } // namespace BACCARAT
 
