@@ -9,7 +9,7 @@ CardDealer::CardDealer() { reset_deck(); }
 
 // PUBLIC METHODS
 
-void CardDealer::play_round(BetType& outcome)
+void CardDealer::play_round(BetType &outcome)
 {
   std::string player_cards;
   std::string banker_cards;
@@ -189,7 +189,7 @@ auto CardDealer::get_string_card_type(const int &card_type) -> std::string
   return INT_TO_STRING_CARD_TYPE_MAP[card_type];
 }
 
-void CardDealer::pay_out_bets(const BetType& outcome, CasinoPlayer* player)
+void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer *player)
 {
   if (player->get_current_bet_type() == BetType::NONE)
   {
@@ -210,8 +210,8 @@ void CardDealer::pay_out_bets(const BetType& outcome, CasinoPlayer* player)
     {
       // Player wins, payout is 1:1
       // Player's bet amount is added to the balance
-      player->add_to_balance(player->get_current_bet_amount() * PAYOUT_PLAYER  +
-                            player->get_current_bet_amount());
+      player->add_to_balance(player->get_current_bet_amount() * PAYOUT_PLAYER +
+                             player->get_current_bet_amount());
     }
     break;
   case BetType::BANKER:
@@ -219,8 +219,9 @@ void CardDealer::pay_out_bets(const BetType& outcome, CasinoPlayer* player)
     {
       // Banker wins, payout is 1:1 - 5% commission
       // Player's bet amount is added to the balance
-      player->add_to_balance(player->get_current_bet_amount() * (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION) +
-                            player->get_current_bet_amount());
+      player->add_to_balance(player->get_current_bet_amount() *
+                                 (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION) +
+                             player->get_current_bet_amount());
     }
     break;
   case BetType::TIE:
@@ -229,8 +230,12 @@ void CardDealer::pay_out_bets(const BetType& outcome, CasinoPlayer* player)
       // Tie wins, payout is 8:1
       // Player's bet amount is added to the balance
       player->add_to_balance(player->get_current_bet_amount() * PAYOUT_TIE +
-                            player->get_current_bet_amount());
+                             player->get_current_bet_amount());
     }
+    break;
+  default:
+    // Invalid bet type, unreachable code.
+    BREAKPOINT;
     break;
   }
 }

@@ -1,7 +1,7 @@
 #include "baccarat.h"
 #include "casino_player.h"
-#include <cctype>
 #include <algorithm>
+#include <cctype>
 
 namespace BACCARAT
 {
@@ -50,21 +50,24 @@ void Baccarat::game_state()
 {
   printf("\n--- Starting a game of Baccarat! ---\n\n");
 
-  CasinoPlayer* player = new CasinoPlayer();
+  auto *player = new CasinoPlayer();
 
   while (!exit_state)
   {
     printf("Your current balance is: $%.2f\n", player->check_balance());
 
-    printf("Enter your bet type (PLAYER, BANKER, TIE) and amount (e.g., PLAYER 100): ");
+    printf("Enter your bet type (PLAYER, BANKER, TIE) and amount (e.g., PLAYER "
+           "100): ");
 
     std::string bet_type;
     double bet_amount = 0.0;
 
     std::cin >> bet_type >> bet_amount;
 
+    // Transform the bet type to uppercase.
     std::transform(bet_type.begin(), bet_type.end(), bet_type.begin(),
-                   [](unsigned char c) { return std::toupper(c); });
+                   [](unsigned char bet_type_char)
+                   { return std::toupper(bet_type_char); });
 
     if (bet_type == "PLAYER")
     {
@@ -88,15 +91,13 @@ void Baccarat::game_state()
         update_game_state(&Baccarat::main_menu_state);
         break;
       }
-      else if (response == "yes")
+      if (response == "yes")
       {
         continue;
       }
-      else
-      {
-        printf("Invalid response. Exiting...\n");
-        exit(0);
-      }
+
+      printf("Invalid response. Exiting...\n");
+      exit(0);
     }
 
     printf("Press 'enter' to deal cards...\n");
@@ -109,13 +110,17 @@ void Baccarat::game_state()
     if (input.empty())
     {
       card_dealer.play_round(current_outcome);
-      card_dealer.pay_out_bets(current_outcome, player);
+      BACCARAT::CardDealer::pay_out_bets(current_outcome, player);
     }
     else if (handle_player_input(input))
     {
       continue;
     }
   }
+
+  // Clean up the player pointer.
+  delete player;
+  player = nullptr;
 }
 
 auto Baccarat::handle_player_input(const std::string &user_input) -> bool

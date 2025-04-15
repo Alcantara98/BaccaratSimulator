@@ -8,12 +8,12 @@
               << __func__ << "\n";                                             \
   }
 
+#include "bet_type.h"
+#include "casino_player.h"
 #include <array>
 #include <iostream>
 #include <random>
 #include <string>
-#include "bet_type.h"
-#include "casino_player.h"
 
 namespace BACCARAT
 {
@@ -49,7 +49,7 @@ public:
    * Banker Wins!
    *
    */
-  void play_round(BetType& outcome);
+  void play_round(BetType &outcome);
 
   /**
    * @brief Deals cards to the player and banker.
@@ -90,7 +90,7 @@ public:
    *
    * @param player The player to pay out the bets to.
    */
-  void pay_out_bets(const BetType& outcome, CasinoPlayer* player);
+  static void pay_out_bets(const BetType &outcome, CasinoPlayer *player);
 
 private:
   /// @brief The number of unique cards in a standard deck used in Baccarat.
@@ -101,7 +101,7 @@ private:
   /// hence the maximum number of times a card can be drawn is 32 (8 x 4).
   static constexpr int MAX_DRAWS_PER_CARD = 32;
 
-  /// @brief The number of unique cards in a standard deck used in Baccarat.
+  /// @brief The total number of cards in a shoe used in Baccarat.
   /// @details There are 8 decks of cards, each deck has 52 cards, hence the
   /// total number of cards in a deck is 416 (8 x 52).
   static constexpr int TOTAL_CARDS_IN_DECK = 416;
@@ -144,13 +144,17 @@ private:
   static constexpr std::array<int, 13> CARD_VALUES = {1, 2, 3, 4, 5, 6, 7,
                                                       8, 9, 0, 0, 0, 0};
 
-  static constexpr double PAYOUT_TIE = 8.0; // Payout for a tie bet
+  /// @brief The payout for a tie bet.
+  static constexpr double PAYOUT_TIE = 8.0;
 
-  static constexpr double PAYOUT_BANKER = 1.0; // Payout for a banker bet
+  /// @brief The payout for a banker bet.
+  static constexpr double PAYOUT_BANKER = 1.0;
 
-  static constexpr double PAYOUT_PLAYER = 1.0; // Payout for a player bet
+  /// @brief The payout for a player bet.
+  static constexpr double PAYOUT_PLAYER = 1.0;
 
-  static constexpr double PAYOUT_BANKER_COMMISSION = 0.05; // Commission for banker
+  /// @brief The commission for a banker.
+  static constexpr double PAYOUT_BANKER_COMMISSION = 0.05;
 
   /// @brief Keeps track of how many times each card has been drawn.
   /// @note Each card can be drawn a maximum of 32 times (4 decks of 8 cards).

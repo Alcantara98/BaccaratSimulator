@@ -1,8 +1,8 @@
 #ifndef BACCARAT_H
 #define BACCARAT_H
 
-#include "card_dealer.h"
 #include "bet_type.h"
+#include "card_dealer.h"
 
 namespace BACCARAT
 {
@@ -41,11 +41,14 @@ private:
   /// @brief The current state of the game.
   StateType current_state = &Baccarat::main_menu_state;
 
+  /// @brief Flag to indicate if the game should exit the current state.
   bool exit_state = false;
 
   /// @brief The CardDealer object to handle card dealing.
   CardDealer card_dealer;
 
+  /// @brief The current outcome of the round.
+  /// @details This is used to determine the outcome of the game and to pay out
   BetType current_outcome = BetType::NONE;
 
   /**
