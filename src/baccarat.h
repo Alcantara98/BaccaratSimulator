@@ -4,6 +4,9 @@
 #include "bet_type.h"
 #include "card_dealer.h"
 
+#include <algorithm>
+#include <cctype>
+
 namespace BACCARAT
 {
 

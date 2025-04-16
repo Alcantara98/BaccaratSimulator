@@ -13,6 +13,7 @@ option(RELEASE "Release Build, enable optimization" OFF)
 
 message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
+message(STATUS "CXX C Make Program: ${CMAKE_MAKE_PROGRAM}")
 
 # Add source files
 file(GLOB_RECURSE SOURCES "src/*.cpp")

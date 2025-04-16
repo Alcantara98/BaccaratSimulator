@@ -3,6 +3,8 @@
 
 #include "bet_type.h"
 
+#include <cstdio>
+
 namespace BACCARAT
 {
 

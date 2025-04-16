@@ -1,5 +1,4 @@
 #include "casino_player.h"
-#include <cstdio>
 
 namespace BACCARAT
 {
