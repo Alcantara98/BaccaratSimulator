@@ -8,6 +8,8 @@
               << __func__ << "\n";                                             \
   }
 
+#include "bet_type.h"
+#include "casino_player.h"
 #include <array>
 #include <iostream>
 #include <random>
@@ -47,7 +49,7 @@ public:
    * Banker Wins!
    *
    */
-  void play_round();
+  void play_round(BetType &outcome);
 
   /**
    * @brief Deals cards to the player and banker.
@@ -80,6 +82,16 @@ public:
    */
   void print_drawn_card_counter();
 
+  /**
+   * @brief Pays out the bets to the player.
+   *
+   * @details This function simulates paying out the bets to the player based on
+   * the outcome of the game.
+   *
+   * @param player The player to pay out the bets to.
+   */
+  static void pay_out_bets(const BetType &outcome, CasinoPlayer &player);
+
 private:
   /// @brief The number of unique cards in a standard deck used in Baccarat.
   static constexpr int NUM_OF_UNIQUE_CARDS = 13;
@@ -89,7 +101,7 @@ private:
   /// hence the maximum number of times a card can be drawn is 32 (8 x 4).
   static constexpr int MAX_DRAWS_PER_CARD = 32;
 
-  /// @brief The number of unique cards in a standard deck used in Baccarat.
+  /// @brief The total number of cards in a shoe used in Baccarat.
   /// @details There are 8 decks of cards, each deck has 52 cards, hence the
   /// total number of cards in a deck is 416 (8 x 52).
   static constexpr int TOTAL_CARDS_IN_DECK = 416;
@@ -112,6 +124,10 @@ private:
   /// cards are drawn.
   static constexpr int NATURAL_NINE = 9;
 
+  /// @brief The modulo value used to calculate the hand value in Baccarat.
+  /// @note Hand value cannot exceed 9, hence the modulo value is 10.
+  static constexpr int HAND_VALUE_MODULO = 10;
+
   /// @brief When the player has 3 cards, this table is used to determine if the
   /// banker should draw a third card. Index one is the value of the banker's
   /// first two cards and the second index is the value of the player's third
@@ -131,6 +147,18 @@ private:
   /// for more information.
   static constexpr std::array<int, 13> CARD_VALUES = {1, 2, 3, 4, 5, 6, 7,
                                                       8, 9, 0, 0, 0, 0};
+
+  /// @brief The payout for a tie bet.
+  static constexpr double PAYOUT_TIE = 8.0;
+
+  /// @brief The payout for a banker bet.
+  static constexpr double PAYOUT_BANKER = 1.0;
+
+  /// @brief The payout for a player bet.
+  static constexpr double PAYOUT_PLAYER = 1.0;
+
+  /// @brief The commission for a banker.
+  static constexpr double PAYOUT_BANKER_COMMISSION = 0.05;
 
   /// @brief Keeps track of how many times each card has been drawn.
   /// @note Each card can be drawn a maximum of 32 times (4 decks of 8 cards).
