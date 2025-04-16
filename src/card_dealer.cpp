@@ -138,9 +138,8 @@ auto CardDealer::banker_can_draw_third_card(int banker_hand_value,
                              [CARD_VALUES[player_third_card]];
 }
 
-auto CardDealer::player_or_banker_has_natural_hand(const int &player_hand_value,
-                                                   const int &banker_hand_value)
-    -> bool
+auto CardDealer::player_or_banker_has_natural_hand(
+    const int &player_hand_value, const int &banker_hand_value) -> bool
 {
   // Check if either player or banker has a natural hand (8 or 9).
   return (

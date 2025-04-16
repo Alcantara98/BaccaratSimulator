@@ -2,8 +2,8 @@
 #define BET_TYPE_H
 
 #include <array>
-#include <string>
 #include <cstdint>
+#include <string>
 
 namespace BACCARAT
 {
