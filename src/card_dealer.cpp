@@ -138,8 +138,9 @@ auto CardDealer::banker_can_draw_third_card(int banker_hand_value,
                              [CARD_VALUES[player_third_card]];
 }
 
-auto CardDealer::player_or_banker_has_natural_hand(
-    const int &player_hand_value, const int &banker_hand_value) -> bool
+auto CardDealer::player_or_banker_has_natural_hand(const int &player_hand_value,
+                                                   const int &banker_hand_value)
+    -> bool
 {
   // Check if either player or banker has a natural hand (8 or 9).
   return (
@@ -213,8 +214,8 @@ void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer &player)
     {
       // Player wins, payout is 1:1
       // Player's bet amount is added to the balance
-      player.add_to_balance(player.get_current_bet_amount() * PAYOUT_PLAYER +
-                            player.get_current_bet_amount());
+      player.add_to_balance(player.get_current_bet_amount() *
+                            (PAYOUT_PLAYER + 1));
     }
     break;
   case BetType::BANKER:
@@ -223,8 +224,7 @@ void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer &player)
       // Banker wins, payout is 1:1 - 5% commission
       // Player's bet amount is added to the balance
       player.add_to_balance(player.get_current_bet_amount() *
-                                (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION) +
-                            player.get_current_bet_amount());
+                            (PAYOUT_BANKER - PAYOUT_BANKER_COMMISSION + 1));
     }
     break;
   case BetType::TIE:
@@ -232,8 +232,7 @@ void CardDealer::pay_out_bets(const BetType &outcome, CasinoPlayer &player)
     {
       // Tie wins, payout is 8:1
       // Player's bet amount is added to the balance
-      player.add_to_balance(player.get_current_bet_amount() * PAYOUT_TIE +
-                            player.get_current_bet_amount());
+      player.add_to_balance(player.get_current_bet_amount() * (PAYOUT_TIE + 1));
     }
     break;
   default:

@@ -96,7 +96,7 @@ auto Baccarat::handle_general_user_commands(const std::string &user_input)
     -> bool
 {
   // Handle user input for exiting or changing game states.
-  if (user_input == "exit")
+  if (user_input == "q")
   {
     printf("Exiting the game...\n");
     exit(0);
@@ -114,7 +114,7 @@ auto Baccarat::handle_general_user_commands(const std::string &user_input)
   }
   else if (user_input == "help")
   {
-    printf("Available commands:\n  -start\n  -exit\n  -menu\n  -reset\n  "
+    printf("Available commands:\n  -start\n  -q\n  -menu\n  -reset\n  "
            "-draw-counts\n  -help\n  -press 'enter' to deal cards\n");
     return true;
   }
