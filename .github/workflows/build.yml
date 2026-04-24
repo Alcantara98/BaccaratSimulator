@@ -15,11 +15,6 @@ jobs:
 
       - name: Set up CMake
         uses: lukka/get-cmake@latest
-      
-      - name: Install LLVM 18
-        uses: KyleMayes/install-llvm-action@v2
-        with:
-          version: "18"
 
       - name: Run clang-format check
         run: |
